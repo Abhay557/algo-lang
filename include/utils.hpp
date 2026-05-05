@@ -1,6 +1,15 @@
+/**
+ * File: utils.hpp
+ * Brief: General utility and helper functions.
+ *
+ * Provides stateless helper functions for the interpreter, including 
+ * string manipulation (like trimming whitespace), token extraction, 
+ * and variable existence lookups within the runtime environment.
+ */
+
 #pragma once
 #include "common.hpp"
-#include "types.hpp"
+#include "value.hpp"
 
 //removes leading and trailing spaces from a string
 //scans for the first and last actual characters, then extracts only that portion.

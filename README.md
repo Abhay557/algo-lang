@@ -1,8 +1,8 @@
 ## So what is AlgoLang?
 
-i was being taught to write algorithms in class and i was like "hmmm, you know what? what if i make this into a programming language? will be kinda cool ngl, and i can make it in C++ to sort of challange myself" so i created this repo made a simple file loading system and forgot about it. a week or so later i suddently remember about this and then pulled an all nighter finishing it. it works pretty well and even follows BODMAS rule for arithmatic stuff. for that i had to learn about something called recursive descent parser which is used in low level compilers and stuff so that was pretty cool. 
+I was being taught to write algorithms in class and I was like "Hmmm, you know what? What if I make this into a programming language? Will be kinda cool ngl, and I can make it in C++ to sort of challenge myself." So I created this repo, made a simple file loading system, and forgot about it. A week or so later I suddenly remembered about this and then pulled an all-nighter finishing it. It works pretty well and even follows the BODMAS rule for arithmetic stuff. For that, I had to learn about something called a recursive descent parser which is used in low-level compilers and stuff, so that was pretty cool. 
 
-actual image of an algorithm i wrote in class (ignore my handwriting, i was distracted by the pretty girl sitting near me):
+Actual image of an algorithm I wrote in class (ignore my handwriting, I was distracted by the pretty girl sitting near me):
 
 <img src="for_readme/from_my_actual_notebook.jpeg" alt="algorithm" width="500"/>
 
@@ -11,21 +11,20 @@ actual image of an algorithm i wrote in class (ignore my handwriting, i was dist
 * **START** - defines where the program starts
 * **END** - defines where the program stops executing
 * **DECLARE** - used to declare variables
-* **INPUT** - input integers, floats and strings
-* **OUTPUT** - output variable, integer, strings
+* **INPUT** - input integers, floats, and strings. *(I also got dynamic variable allocation working! You just type an input and the interpreter decides on its own what kind of input it is and stores it in that variable. Pretty cool right?)*
+* **OUTPUT** - output variables, integers, strings
 * **GOTO** - start interpreting from a specific line
 * **IF** / **ELIF** / **ELSE** - conditional branching (supports both inline checks and multi-line blocks using **ENDIF**, **ENDELIF**, and **ENDELSE**)
 * **WHILE** / **ENDWHILE** - native loop blocks so you don't have to build them manually with GOTO
+* **RANDOM** - use `var_name = RANDOM(lower_bound, upper_bound)` to assign a random number to a variable
+* **$** - if you want to show a variable's value in output, just type it with **$** and it will show it!
+  * *Example:* `var_a = 5`, `OUTPUT "value of var_a = $var_a"`, and the output will look like `"value of var_a = 5"`
 
-Boolean logic inside IF/ELIF supports **and**, **or**, and **xor** with fixed precedence rules:
+### Boolean Logic
+Boolean logic inside `IF`/`ELIF` and `WHILE` supports **and**, **or**, and **xor** with fixed precedence rules:
 - **and/xor** are evaluated before **or**
-- operators at the same precedence are evaluated left-to-right
-- bracket/parenthesis grouping in IF/ELIF conditions is intentionally **not** supported
-- **RANDOM** - use var_name = RANDOM(lower_bound, upper_bound) to assign a random number to a variable
-- **$** - if you want to show a variable's value in output just type it with **$**  and it will show it,
-ex - var_a = 5, OUTPUT "value of var_a = $var_a", and the output will look like "value of var_a = 5" 
-
-oh and i also got dynamic variable allocation working which was pretty cool to make. you just type an input and the interpreter decides on its own what kind of input it is and stores it in that variable. pretty cool right?
+- Operators at the same precedence are evaluated left-to-right
+- Bracket/parenthesis grouping in conditions is intentionally **not** supported
 
 ---
 
@@ -52,8 +51,6 @@ OUTPUT i
 i = i + 1
 GOTO 5
 END
-
-
 ```
 
 **Output:**
@@ -67,8 +64,6 @@ Enter value for n: 10
 >> 7
 
 E:\AlgoLang>
-
-
 ```
 
 ### Factorial Calculator
@@ -95,11 +90,10 @@ Enter value for n: 5
 >> 120
 
 E:\AlgoLang>
-
-
 ```
-# if while boolean logic check
-```
+
+### Boolean Logic Check (`IF` & `WHILE`)
+```text
 START
 DECLARE i
 
@@ -128,6 +122,7 @@ ENDWHILE
 OUTPUT "Loop ended"
 END
 ```
+
 **Output:**
 
 ```cmd
@@ -144,6 +139,7 @@ Boolean IF + WHILE demo
 >> ELSE branch
 >> Loop ended
 ```
+
 ### Number Analyzer
 ```text
 START
@@ -168,7 +164,7 @@ WHILE loops < 3
     loops = loops + 1
 ENDWHILE
 //this ENDWHILE tells the interpreter that anything
- between WHILE and this falls under WHILE. it acts like {} of modern languages
+//between WHILE and this falls under WHILE. it acts like {} of modern languages
 
 OUTPUT "Analysis finished. Goodbye!"
 END
@@ -195,7 +191,9 @@ E:\AlgoLang>
 
 ### NOTICE how the Number Analyzer code is written differently
 
-The Number Analyzer showcases AlgoLang’s move toward modern, structured programming. By replacing manual GOTO jumps with WHILE and IF/ELIF/ELSE blocks, the script no longer relies on fragile line-counting; instead, the engine "scans" for matching END tags to skip or repeat code sections automatically. This makes the code much more resilient—you can add blank lines or comments anywhere without breaking the logic. While our trim() function filters out messy spaces and tabs to keep the parser happy, the absolute "address" of a line is now irrelevant for this modern style. As long as your blocks are properly closed, the engine handles the navigation, letting you focus on the algorithm rather than the math of the line numbers. You can still use GOTO and stuff along with these new additions, we have kept that compatibility.
+The Number Analyzer showcases AlgoLang’s move toward modern, structured programming. By replacing manual `GOTO` jumps with `WHILE` and `IF`/`ELIF`/`ELSE` blocks, the script no longer relies on fragile line-counting; instead, the engine "scans" for matching `END` tags to skip or repeat code sections automatically. 
+
+This makes the code much more resilient—you can add blank lines or comments anywhere without breaking the logic. While our `trim()` function filters out messy spaces and tabs to keep the parser happy, the absolute "address" of a line is now irrelevant for this modern style. As long as your blocks are properly closed, the engine handles the navigation, letting you focus on the algorithm rather than the math of the line numbers. You can still use `GOTO` and stuff along with these new additions, we have kept that compatibility.
 
 ---
 
@@ -203,28 +201,30 @@ The Number Analyzer showcases AlgoLang’s move toward modern, structured progra
 
 To write and run your own algorithms using AlgoLang:
 
-1. Clone the repository to your local machine:
-
-```bash
-git clone https://github.com/omnimistic/algo-lang.git
-
-```
-
-2. Navigate to the project directory.
-3. Write your algorithm in a `.txt` file using the keywords above and make sure to only use one keyword per line unless its an if statement. Also as you might have noticed the line number matters. So keep that in mind.
-4. Run the executable, passing your file path as an argument:
-
-```cmd
-algo.exe ./path/to/your/file.txt
-
-
-```
+1. **Clone the repository** to your local machine:
+   ```bash
+   git clone [https://github.com/omnimistic/algo-lang.git](https://github.com/omnimistic/algo-lang.git)
+   ```
+2. **Navigate** to the project directory:
+   ```bash
+   cd algo-lang
+   ```
+3. **Compile the engine** (Requires a C++ compiler like GCC/MinGW):
+   ```bash
+   make
+   ```
+4. **Write your algorithm** in a `.txt` file using the keywords above. Make sure to only use one keyword per line (unless it's an inline statement). Also, if you use `GOTO`, remember that line numbers matter!
+5. **Run the executable**, passing your file path as an argument:
+   ```cmd
+   algo.exe ./path/to/your/file.txt
+   ```
+   *(Note: On Mac/Linux, run `./algo ./path/to/your/file.txt`)*
 
 ---
 
 ## Contributing
 
-well thats about it. idk if i am gonna work on this anymore but yall are free to contribute to it. its a simple project so will be good for new programmers instead of jumping into a complex repo.
+Well, that's about it. Idk if I am gonna work on this anymore but y'all are free to contribute to it. It's a simple project so it will be good for new programmers instead of jumping into a complex repo.
 
 AlgoLang is a community project! If you want to help make it a "real" language, please check out our [Contributing Guidelines](CONTRIBUTING.md) for a list of to-dos and rules for submitting Pull Requests.
 

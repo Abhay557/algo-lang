@@ -1,7 +1,18 @@
+/**
+ * File: parser.hpp
+ * Brief: Recursive descent parser for expressions and conditions.
+ *
+ * This module parses and evaluates inline mathematical and boolean 
+ * expressions. It implements a recursive descent parsing strategy to 
+ * correctly handle operator precedence (e.g., ensuring multiplication 
+ * and division occur before addition and subtraction), and resolves 
+ * conditional statements for control flow.
+ */
+
 #pragma once
 #include "common.hpp"
 #include "utils.hpp"
-#include "types.hpp"
+#include "value.hpp"
 
 using namespace std;
 

@@ -1,3 +1,11 @@
+/**
+ * File: common.hpp 
+ * Brief: Standard library includes and global dependencies.
+ *
+ * Centralizes standard C++ library headers used across the interpreter 
+ * to ensure consistent availability and streamline compilation.
+ */
+
 #pragma once
 
 #include <iostream>
