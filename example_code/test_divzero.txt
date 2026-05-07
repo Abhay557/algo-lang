@@ -1,0 +1,8 @@
+START
+DECLARE a, b
+a = 10
+b = 0
+OUTPUT "Attempting 10 / 0"
+a = a / b
+OUTPUT "This should not print"
+END

@@ -126,12 +126,12 @@ float parseTerm(const string& str, size_t& pos, map<string, varValue>* variables
     if (op == '*') val *= nextVal;
     else if (op == '/') {
       if (nextVal != 0.0f) val /= nextVal;
-      else cout << "Error: Division by zero!" << endl;
+      else { cout << "Error: Division by zero!" << endl; exit(1); }
     }
     else if (op == '%') {
       // % symbol doesn't work on floats in C++ so fmod is used
       if (nextVal != 0.0f) val = fmod(val, nextVal);
-      else cout << "Error: Modulo by zero!" << endl;
+      else { cout << "Error: Modulo by zero!" << endl; exit(1); }
     }
   }
   return val;

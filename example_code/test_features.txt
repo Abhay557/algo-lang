@@ -1,0 +1,5 @@
+START
+DECLARE my_string
+my_string = "Testing String Assignment"
+OUTPUT my_string
+END

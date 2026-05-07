@@ -309,14 +309,27 @@ void executeLine(string line, int& i, const vector<string>& Buffer, map<string, 
             string expression;
             //take the mathematical expression and pass it to doMaths
             getline(ss, expression);
-            
-            float result = doMaths(expression, variables);
-            
-            (*variables)[targetVar].f_val = result;
-            (*variables)[targetVar].i_val = (int)result;
+            expression = trim(expression);
 
-            if (result == (int)result) (*variables)[targetVar].type = TYPE_INT;
-            else (*variables)[targetVar].type = TYPE_FLOAT;
+            if (!expression.empty() && expression[0] == '"') {
+                size_t lastQuote = expression.find_last_of('"');
+                string strVal;
+                if (lastQuote != string::npos && lastQuote > 0) {
+                    strVal = expression.substr(1, lastQuote - 1);
+                } else {
+                    strVal = expression.substr(1);
+                }
+                (*variables)[targetVar].type = TYPE_STRING;
+                (*variables)[targetVar].s_val = strVal;
+            } else {
+                float result = doMaths(expression, variables);
+                
+                (*variables)[targetVar].f_val = result;
+                (*variables)[targetVar].i_val = (int)result;
+
+                if (result == (int)result) (*variables)[targetVar].type = TYPE_INT;
+                else (*variables)[targetVar].type = TYPE_FLOAT;
+            }
         }
     }
 }
