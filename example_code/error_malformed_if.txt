@@ -1,0 +1,16 @@
+// This script will INTENTIONALLY make a fatal error because of
+// a syntax error in the IF statement, where the operator
+// '=<' isn't a real thing. So this file is specifically
+// meant to fail to test out the new error system.
+
+// The output should specifically be this:
+// (fatal) Syntax Error: Malformed IF condition on line 13:
+// --->    13 | IF count =< 3
+
+START
+DECLARE count
+count = 0
+IF count =< 3
+    OUTPUT "Hello world!"
+ENDIF
+END

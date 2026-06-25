@@ -25,6 +25,16 @@ string joinTokens(const vector<string>& tokens, size_t start, size_t endExclusiv
     }
     return joined;
 }
+
+// Print a fatal syntax error with the type, line number, and
+// source line itself for useful diagnostics, before we
+// halt the program
+[[noreturn]] static void syntaxError(int lineIndex, const string& error_type, const string& source) {
+    cerr << "(fatal) Syntax Error: " << error_type << " on line " << (lineIndex + 1) << ":" << endl;
+    cerr << "--->    " << (lineIndex + 1) << " | " << source << endl;
+    exit(1);
+}
+
 //thing to check if the statements are valid or not
 bool splitConditionAndInlineCommand(const string& rawConditionAndRest, string* conditionText, string* inlineCommand) {
     vector<string> tokens;
@@ -135,7 +145,10 @@ void executeLine(string line, int& i, const vector<string>& Buffer, map<string, 
             string toParse;
             if (lastQuote != string::npos && lastQuote > 0) {
                 toParse = restOfLine.substr(1, lastQuote - 1);
-            } else cout << "Error: Missing closing quote in OUTPUT!" << endl;
+            } else {
+                // Call a fatal error for missing closing quotes
+                syntaxError(i, "Missing closing quote in OUTPUT", Buffer[i]);
+            }
             
             string result;
             for(int i = 0; i < (int)toParse.length(); i++){
@@ -202,8 +215,8 @@ void executeLine(string line, int& i, const vector<string>& Buffer, map<string, 
         string conditionText;
         string inlineCommand;
         if (!splitConditionAndInlineCommand(conditionAndInline, &conditionText, &inlineCommand)) {
-            cout << "Error: Malformed IF condition!" << endl;
-            exit(1);
+            // Call a fatal error for malformed IF
+            syntaxError(i, "Malformed IF condition", Buffer[i]);
         }
 
         stringstream conditionStream(conditionText);
@@ -231,8 +244,8 @@ void executeLine(string line, int& i, const vector<string>& Buffer, map<string, 
         string conditionText;
         string inlineCommand;
         if (!splitConditionAndInlineCommand(conditionAndInline, &conditionText, &inlineCommand)) {
-            cout << "Error: Malformed ELIF condition!" << endl;
-            exit(1);
+            // Call a fatal error for malformed ELIF
+            syntaxError(i, "Malformed ELIF condition", Buffer[i]);
         }
 
         stringstream conditionStream(conditionText);
@@ -271,8 +284,8 @@ void executeLine(string line, int& i, const vector<string>& Buffer, map<string, 
         string conditionText;
         string inlineCommand;
         if (!splitConditionAndInlineCommand(conditionAndInline, &conditionText, &inlineCommand) || !inlineCommand.empty()) {
-            cout << "Error: Malformed WHILE condition!" << endl;
-            exit(1);
+            // Call a fatal error for malformed WHILE
+            syntaxError(i, "Malformed WHILE condition", Buffer[i]);
         }
 
         stringstream conditionStream(conditionText);
@@ -283,8 +296,8 @@ void executeLine(string line, int& i, const vector<string>& Buffer, map<string, 
             if (endIdx != -1) {
                 i = endIdx; 
             } else {
-                cout << "Error: Missing ENDWHILE for WHILE!" << endl;
-                *isRunning = false;
+                // Call fatal syntax error for missing ENDWHILE
+                syntaxError(i, "Missing ENDWHILE for WHILE", Buffer[i]);
             }
         }
     }
@@ -293,8 +306,8 @@ void executeLine(string line, int& i, const vector<string>& Buffer, map<string, 
         if (startIdx != -1) {
             i = startIdx - 1; 
         } else {
-            cout << "Error: Missing WHILE for ENDWHILE!" << endl;
-            *isRunning = false;
+            // Call fatal syntax error for missing WHILE
+            syntaxError(i, "Missing WHILE for ENDWHILE", Buffer[i]);
         }
     }
     else {
